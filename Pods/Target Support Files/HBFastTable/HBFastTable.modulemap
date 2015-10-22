@@ -1,0 +1,6 @@
+framework module HBFastTable {
+  umbrella header "HBFastTable-umbrella.h"
+
+  export *
+  module * { export * }
+}

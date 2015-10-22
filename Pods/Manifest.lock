@@ -1,0 +1,28 @@
+PODS:
+  - CocoaAsyncSocket (7.4.2)
+  - HBFastTable (0.2.0):
+    - MJRefresh (~> 2.2.0)
+  - MBProgressHUD (0.9.1)
+  - MJRefresh (2.2.1)
+
+DEPENDENCIES:
+  - CocoaAsyncSocket
+  - HBFastTable (from `https://github.com/Natoto/HBFastTableViewCotroller.git`)
+  - MBProgressHUD (~> 0.9.1)
+
+EXTERNAL SOURCES:
+  HBFastTable:
+    :git: https://github.com/Natoto/HBFastTableViewCotroller.git
+
+CHECKOUT OPTIONS:
+  HBFastTable:
+    :commit: 868a08183c454d19a8d8b55a64c455c7f815721b
+    :git: https://github.com/Natoto/HBFastTableViewCotroller.git
+
+SPEC CHECKSUMS:
+  CocoaAsyncSocket: f5783bdedd232d91b89769bc4b5a1580aed518ad
+  HBFastTable: 6c74dd3d30e834f3b614560b158cd07783fee392
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MJRefresh: c3fa0387e8e97a11a9666639d2f815607edd1c2f
+
+COCOAPODS: 0.38.2
