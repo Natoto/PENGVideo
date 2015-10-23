@@ -1,0 +1,18 @@
+String.format("%s;%s;%s;%s;%s", logicServUrl,resServUrl,resDataUrl,VideoUploadIpAndPort,AliOssUrl)
+
+半角英文分号分隔，按顺序依次如下
+
+0--logicServUrl
+	 逻辑服务器的url
+1--resServUrl
+	图片资源服务器的HTTP上传url
+	如：http://121.199.49.104/PengResourceService/FileUpload
+2--resDataUrl	
+	图片资源访问的HTTP-URL前缀
+	如：http://img.pm.pengpeng.com/ResData
+3--VideoUploadIpAndPort
+	视频上传服务的ip和端口，使用socket上传
+	如：121.40.75.108:9444
+4--AliOssUrl
+	阿里云OSS的url前缀，即视频文件访问用的HTTP-URL前缀
+	如：http://video.pm.pengpeng.com

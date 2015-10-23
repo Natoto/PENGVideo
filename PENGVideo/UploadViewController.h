@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CocoaAsyncSocket-umbrella.h"
-
-@interface UploadViewController : UIViewController
+#import "HBTable.h"
+@interface UploadViewController : HB_BaseViewController
 { 
     AsyncSocket * asyncSocket;
 }
-@property (retain, nonatomic) IBOutlet UITextField *textField;
 
 @end
 

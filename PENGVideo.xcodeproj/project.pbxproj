@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3301173E1BD781B70025D212 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301173D1BD781B70025D212 /* PlayerView.m */; settings = {ASSET_TAGS = (); }; };
+		3315D0DB1BD9CE3200691A55 /* UploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3315D0DA1BD9CE3200691A55 /* UploadViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		3315D0DF1BD9DD8D00691A55 /* UDPSocketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3315D0DD1BD9DD8D00691A55 /* UDPSocketViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3315D0E01BD9DD8D00691A55 /* UDPSocketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3315D0DE1BD9DD8D00691A55 /* UDPSocketViewController.xib */; settings = {ASSET_TAGS = (); }; };
+		3315D0E41BDA1CB600691A55 /* TCPSocketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3315D0E21BDA1CB600691A55 /* TCPSocketViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3315D0E51BDA1CB600691A55 /* TCPSocketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3315D0E31BDA1CB600691A55 /* TCPSocketViewController.xib */; settings = {ASSET_TAGS = (); }; };
 		3358DC4E1BD87DAA007E57FA /* SystemCaptureVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3358DC4D1BD87DAA007E57FA /* SystemCaptureVideoViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3358DC501BD882D5007E57FA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3358DC4F1BD882D5007E57FA /* MobileCoreServices.framework */; };
 		3358DC541BD88CA2007E57FA /* OverlayViewConroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3358DC521BD88CA2007E57FA /* OverlayViewConroller.m */; settings = {ASSET_TAGS = (); }; };
@@ -53,6 +58,13 @@
 /* Begin PBXFileReference section */
 		3301173C1BD781B70025D212 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
 		3301173D1BD781B70025D212 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
+		3315D0DA1BD9CE3200691A55 /* UploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UploadViewController.xib; sourceTree = "<group>"; };
+		3315D0DC1BD9DD8D00691A55 /* UDPSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDPSocketViewController.h; sourceTree = "<group>"; };
+		3315D0DD1BD9DD8D00691A55 /* UDPSocketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UDPSocketViewController.m; sourceTree = "<group>"; };
+		3315D0DE1BD9DD8D00691A55 /* UDPSocketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UDPSocketViewController.xib; sourceTree = "<group>"; };
+		3315D0E11BDA1CB600691A55 /* TCPSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPSocketViewController.h; sourceTree = "<group>"; };
+		3315D0E21BDA1CB600691A55 /* TCPSocketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPSocketViewController.m; sourceTree = "<group>"; };
+		3315D0E31BDA1CB600691A55 /* TCPSocketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCPSocketViewController.xib; sourceTree = "<group>"; };
 		3358DC4C1BD87DAA007E57FA /* SystemCaptureVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemCaptureVideoViewController.h; sourceTree = "<group>"; };
 		3358DC4D1BD87DAA007E57FA /* SystemCaptureVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemCaptureVideoViewController.m; sourceTree = "<group>"; };
 		3358DC4F1BD882D5007E57FA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -216,8 +228,15 @@
 				3377CDD01BD63DEF001DC21D /* PlayViewController.h */,
 				3377CDD11BD63DEF001DC21D /* PlayViewController.m */,
 				3377CDD31BD63E3C001DC21D /* PlayViewController.xib */,
+				3315D0DC1BD9DD8D00691A55 /* UDPSocketViewController.h */,
+				3315D0DD1BD9DD8D00691A55 /* UDPSocketViewController.m */,
+				3315D0DE1BD9DD8D00691A55 /* UDPSocketViewController.xib */,
+				3315D0E11BDA1CB600691A55 /* TCPSocketViewController.h */,
+				3315D0E21BDA1CB600691A55 /* TCPSocketViewController.m */,
+				3315D0E31BDA1CB600691A55 /* TCPSocketViewController.xib */,
 				3377CDC91BD6275B001DC21D /* UploadViewController.h */,
 				3377CDCA1BD6275B001DC21D /* UploadViewController.m */,
+				3315D0DA1BD9CE3200691A55 /* UploadViewController.xib */,
 				3377CD9C1BD61A8E001DC21D /* Main.storyboard */,
 				3301173C1BD781B70025D212 /* PlayerView.h */,
 				3301173D1BD781B70025D212 /* PlayerView.m */,
@@ -371,10 +390,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3315D0DB1BD9CE3200691A55 /* UploadViewController.xib in Resources */,
 				3358DC551BD88CA2007E57FA /* OverlayViewConroller.xib in Resources */,
 				3377CDA31BD61A8E001DC21D /* LaunchScreen.storyboard in Resources */,
+				3315D0E51BDA1CB600691A55 /* TCPSocketViewController.xib in Resources */,
 				3377CDA01BD61A8E001DC21D /* Assets.xcassets in Resources */,
 				3377CD9E1BD61A8E001DC21D /* Main.storyboard in Resources */,
+				3315D0E01BD9DD8D00691A55 /* UDPSocketViewController.xib in Resources */,
 				3377CDCD1BD637AF001DC21D /* testvideo.mp4 in Resources */,
 				3377CDD41BD63E3C001DC21D /* PlayViewController.xib in Resources */,
 			);
@@ -460,8 +482,10 @@
 				3377CD981BD61A8E001DC21D /* AppDelegate.m in Sources */,
 				3358DC631BD8B2A6007E57FA /* CaptureViewController.m in Sources */,
 				3377CD951BD61A8E001DC21D /* main.m in Sources */,
+				3315D0DF1BD9DD8D00691A55 /* UDPSocketViewController.m in Sources */,
 				3358DC541BD88CA2007E57FA /* OverlayViewConroller.m in Sources */,
 				3377CDCB1BD6275B001DC21D /* UploadViewController.m in Sources */,
+				3315D0E41BDA1CB600691A55 /* TCPSocketViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

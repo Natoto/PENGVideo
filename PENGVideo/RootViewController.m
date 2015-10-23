@@ -11,6 +11,7 @@
 #import "PlayViewController.h"
 #import "SystemCaptureVideoViewController.h"
 #import "CaptureViewController.h"
+#import "UDPSocketViewController.h"
 @interface RootViewController ()
 AS_CELL_STRUCT_COMMON(play)
 AS_CELL_STRUCT_COMMON(record)
@@ -34,7 +35,8 @@ GET_CELL_SELECT_ACTION(cellstruct)
     }
     else if(cellstruct == self.cell_struct_upload)
     {
-        UploadViewController * ctr = [[UploadViewController alloc] init];
+        UploadViewController * ctr = [[UploadViewController alloc] initWithNibName:@"UploadViewController" bundle:nil];
+//        UDPSocketViewController * ctr = [[UDPSocketViewController alloc] initWithNibName:@"UDPSocketViewController" bundle:nil];
         [self.navigationController pushViewController:ctr animated:YES];
     }
     else if(cellstruct == self.cell_struct_record)
