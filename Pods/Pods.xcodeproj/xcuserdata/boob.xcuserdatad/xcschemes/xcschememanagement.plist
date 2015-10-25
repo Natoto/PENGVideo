@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>CocoaAsyncSocket.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>HBFastTable.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>MJRefresh.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>175261375150E70130CB11568704394B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>36AEAFC21CB2982A5EF1EB5122FA066C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>928E3AA38F11B921C330AFDA2BEFD426</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B7C57FD28948D2C391A7F8E45C63C0C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD3A7E66D411042FBACAB10CD3058130</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

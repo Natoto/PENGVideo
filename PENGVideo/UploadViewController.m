@@ -60,6 +60,33 @@
 //    NSLog(@"视频大小%d  一共有%d 切片 当前上传%d片",(int)filesize,(int)slicecount,messageTag);
 }
 
+
+- (void)sendPacket
+{
+    BOOL fin = YES;
+    NSUInteger payloadLen = 100;
+    NSInteger opcode = 0x02; // binary
+    NSInteger len1 = 127;
+    BOOL mask = NO;
+    NSMutableData *header = [NSMutableData dataWithLength:10];
+    unsigned char *data = (unsigned char *)[header bytes];
+    data[0] = (fin ? 0x80 : 0x00) | (opcode & 0x0f);
+    data[1] = (mask ? 0x80 : 0x00) | (len1 & 0x7f);
+    data[2] = 0;
+    data[3] = 0;
+    data[4] = 0;
+    data[5] = 0;
+    data[6] = (payloadLen>>24) & 0xFF;
+    data[7] = (payloadLen>>16) & 0xFF;
+    data[8] = (payloadLen>> 8) & 0xFF;
+    data[9] = (payloadLen>> 0) & 0xFF;
+//    [self enqueueData:header];
+    
+    NSMutableData *payload = [NSMutableData dataWithLength:payloadLen];
+//    [self enqueueData:payload];
+}
+
+
 -(void)viewTap:(id)sender
 {
     [self.txt_ip resignFirstResponder];
@@ -130,18 +157,20 @@
     NSString * uKey = @"nonato";
     NSString * uSecret = @"nonatopassword";
     unsigned int uklength = uKey.length; //strlen(uKey);
-//    [contentdata appendBytes:&uklength  length:sizeof(uklength)];
-     [contentdata appendData:[uKey dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES]];
+    [contentdata appendBytes:&uklength  length:sizeof(uklength)];
+     [contentdata appendData:[uKey dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO]];
     unsigned int uSlength = uSecret.length; //strlen(uSecret);
-//    [contentdata appendBytes:&uSlength  length:sizeof(uSlength)];
-//    [contentdata appendData:[NSData dataWithBytes:&uSecret length:uSlength]];
-    [contentdata appendData:[uSecret dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES]];
+    [contentdata appendBytes:&uSlength  length:sizeof(uSlength)];
+    [contentdata appendData:[uSecret dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO]];
 
     unsigned int contentdatalength = contentdata.length;
-    [senddata appendBytes:&contentdatalength length:sizeof(contentdatalength)];
+    [senddata appendBytes:&contentdatalength length:sizeof(4)];
     unsigned int ProtocolId = 0X0210;
-    [senddata appendBytes:&ProtocolId length:sizeof(ProtocolId)];
+    [senddata appendBytes:&ProtocolId length:sizeof(4)];
     [senddata appendData:contentdata];
+    
+//    Byte byte[] = {7.548785324037814e+68};
+//    NSData * data = [NSData dataWithBytes:byte length:32];
     
     return senddata;
 }
@@ -159,18 +188,17 @@
     memcpy(&ip, bytes + 0, sizeof(unsigned int));
 //    idx += sizeof(unsigned int);
     
-    [contentdata appendBytes:&uklength  length:sizeof(uklength)];
+    [contentdata appendBytes:&uklength  length:4];
     [contentdata appendData:[uKey dataUsingEncoding:NSUTF8StringEncoding]];
     unsigned int uSlength = uSecret.length;
-    [contentdata appendBytes:&uSlength  length:sizeof(uSlength)];
+    [contentdata appendBytes:&uSlength  length:4];
     [contentdata appendData:[uSecret dataUsingEncoding:NSUTF8StringEncoding]];
 //    [contentdata appendData:[AsyncSocket CRLFData]];
     
     unsigned int contentdatalength = contentdata.length;
     [senddata appendBytes:&contentdatalength length:sizeof(contentdatalength)];
     unsigned int ProtocolId = 0X0210;
-    [senddata appendBytes:&ProtocolId length:sizeof(ProtocolId)];
-//    [senddata appendData:[NSData dataWithBytes:@"\x10\x02" length:4]];
+    [senddata appendBytes:&ProtocolId length:4];
     [senddata appendData:contentdata];
     
 //    <1c000000     10020000 06000000 6e6f6e61   746f0e00 00006e6f6e61746f70617373 776f7264>
