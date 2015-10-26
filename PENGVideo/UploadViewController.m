@@ -8,7 +8,19 @@
 
 #import "UploadViewController.h"
 #import "AsyncSocket.h"
+#import "PENGAuth.h"
+#import "Socket_PENG.h" 
+#import "Socket_StartTrans.h"
+#import "Socket_PureData.h"
 
+typedef enum : NSUInteger {
+    SOCKET_CONNECT,
+    SOCKET_AUTH,
+    SOCKET_STARTTRANS,
+    SOCKET_TRANSPORTING,
+    SOCKET_FINSH,
+    SOCKET_UNCONNECT,
+} SOCKETUPLOADSTATE;
 @interface UploadViewController ()<AsyncSocketDelegate>
 {
     int messageTag ;
@@ -16,6 +28,7 @@
     long long slicecount;
     NSString *filepath;
 }
+@property (assign, nonatomic) SOCKETUPLOADSTATE uploadstate;
 @property (weak, nonatomic) IBOutlet UITextField *txt_ip;
 @property (weak, nonatomic) IBOutlet UITextField *port;
 @property (weak, nonatomic) IBOutlet UITextField *txt_message;
@@ -52,40 +65,12 @@
     [self.btn_connect setTitle:@"断开连接" forState:UIControlStateSelected];
 
 //传视频
-//    filepath = [[NSBundle mainBundle] pathForResource:@"testvideo" ofType:@"mp4"];
-//    //    NSData * data = [NSData dataWithContentsOfFile:filepath];
-//    filesize = [self fileSizeAtPath:filepath];
-//    slicecount =  ceilf(filesize/MAXSLICESSIZE);
-//    [self sendDataWithIndex:messageTag];
-//    NSLog(@"视频大小%d  一共有%d 切片 当前上传%d片",(int)filesize,(int)slicecount,messageTag);
+    filepath = [[NSBundle mainBundle] pathForResource:@"testvideo" ofType:@"mp4"];
+    //    NSData * data = [NSData dataWithContentsOfFile:filepath];
+    filesize = [self fileSizeAtPath:filepath];
+    slicecount =  ceilf(filesize/MAXSLICESSIZE);
+    NSLog(@"视频大小%d  一共有%d 切片 当前上传%d片",(int)filesize,(int)slicecount,messageTag);
 }
-
-
-- (void)sendPacket
-{
-    BOOL fin = YES;
-    NSUInteger payloadLen = 100;
-    NSInteger opcode = 0x02; // binary
-    NSInteger len1 = 127;
-    BOOL mask = NO;
-    NSMutableData *header = [NSMutableData dataWithLength:10];
-    unsigned char *data = (unsigned char *)[header bytes];
-    data[0] = (fin ? 0x80 : 0x00) | (opcode & 0x0f);
-    data[1] = (mask ? 0x80 : 0x00) | (len1 & 0x7f);
-    data[2] = 0;
-    data[3] = 0;
-    data[4] = 0;
-    data[5] = 0;
-    data[6] = (payloadLen>>24) & 0xFF;
-    data[7] = (payloadLen>>16) & 0xFF;
-    data[8] = (payloadLen>> 8) & 0xFF;
-    data[9] = (payloadLen>> 0) & 0xFF;
-//    [self enqueueData:header];
-    
-    NSMutableData *payload = [NSMutableData dataWithLength:payloadLen];
-//    [self enqueueData:payload];
-}
-
 
 -(void)viewTap:(id)sender
 {
@@ -112,110 +97,26 @@
         }
     }
 }
-
+//TODO:STEP 1
 - (IBAction)sendmessage:(id)sender {
     
-    NSMutableData * senddata = [self DataForAuthreq];
-    [asyncSocket writeData:senddata withTimeout:-1 tag:100];
+    PENGAuthReq * req = [PENGAuthReq reqWithKey:@"nonato" secret:@"nonatopassword"]; // [self DataForAuthreq];
+    NSMutableData * senddata = [req req_socketData:req];
+    [asyncSocket writeData:senddata withTimeout:-1 tag:messageTag ++];
+    HBLOG2(senddata);
     
 //    NSString * msg = [NSString stringWithFormat:@"%@\r\n",self.txt_message.text];
 //    NSData* xmlData = [msg dataUsingEncoding:NSUTF8StringEncoding];
 //    [asyncSocket writeData:xmlData withTimeout:-1 tag:messageTag ++];
 }
 
-//普通字符串转换为十六进制的。
-
-- (NSString *)hexStringFromString:(NSString *)string{
-    NSData *myD = [string dataUsingEncoding:NSUTF8StringEncoding];
-    Byte *bytes = (Byte *)[myD bytes];
-    //下面是Byte 转换为16进制。
-    NSString *hexStr=@"";
-    for(int i=0;i<[myD length];i++)
-    {
-        NSString *newHexStr = [NSString stringWithFormat:@"%x",bytes[i]&0xff];///16进制数
-        
-        if([newHexStr length]==1)
-            hexStr = [NSString stringWithFormat:@"%@0%@",hexStr,newHexStr];
-        else
-            hexStr = [NSString stringWithFormat:@"%@%@",hexStr,newHexStr]; 
-    } 
-    return hexStr; 
-}
-
-//length 28 : 0000001C
-//0x1002 : 00001002
-//"nonato" : 00066E6F6E61746F
-//"nonatopassword" : 000E6E6F6E61746F70617373776F7264
-
-//<14000000 10020000 6e6f6e61 746f  6e6f 6e61746f 70617373 776f7264>
-
-
--(NSMutableData *)DataForAuthreq
-{
-    NSMutableData * senddata = [NSMutableData new];
-    NSMutableData * contentdata = [NSMutableData new];
-    NSString * uKey = @"nonato";
-    NSString * uSecret = @"nonatopassword";
-    unsigned int uklength = uKey.length; //strlen(uKey);
-    [contentdata appendBytes:&uklength  length:sizeof(uklength)];
-     [contentdata appendData:[uKey dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO]];
-    unsigned int uSlength = uSecret.length; //strlen(uSecret);
-    [contentdata appendBytes:&uSlength  length:sizeof(uSlength)];
-    [contentdata appendData:[uSecret dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO]];
-
-    unsigned int contentdatalength = contentdata.length;
-    [senddata appendBytes:&contentdatalength length:sizeof(4)];
-    unsigned int ProtocolId = 0X0210;
-    [senddata appendBytes:&ProtocolId length:sizeof(4)];
-    [senddata appendData:contentdata];
-    
-//    Byte byte[] = {7.548785324037814e+68};
-//    NSData * data = [NSData dataWithBytes:byte length:32];
-    
-    return senddata;
-}
-
--(NSMutableData *)DataForAuthreq1
-{
-    NSMutableData * senddata = [NSMutableData new];
-    NSMutableData * contentdata = [NSMutableData new];
-    NSString * uKey = @"nonato";
-    NSString * uSecret = @"nonatopassword";
-    unsigned int uklength = uKey.length;
-    
-    Byte *bytes = (Byte*)[senddata bytes];
-    unsigned int ip = 0;
-    memcpy(&ip, bytes + 0, sizeof(unsigned int));
-//    idx += sizeof(unsigned int);
-    
-    [contentdata appendBytes:&uklength  length:4];
-    [contentdata appendData:[uKey dataUsingEncoding:NSUTF8StringEncoding]];
-    unsigned int uSlength = uSecret.length;
-    [contentdata appendBytes:&uSlength  length:4];
-    [contentdata appendData:[uSecret dataUsingEncoding:NSUTF8StringEncoding]];
-//    [contentdata appendData:[AsyncSocket CRLFData]];
-    
-    unsigned int contentdatalength = contentdata.length;
-    [senddata appendBytes:&contentdatalength length:sizeof(contentdatalength)];
-    unsigned int ProtocolId = 0X0210;
-    [senddata appendBytes:&ProtocolId length:4];
-    [senddata appendData:contentdata];
-    
-//    <1c000000     10020000 06000000 6e6f6e61   746f0e00 00006e6f6e61746f70617373 776f7264>
-//    0000001c0000  100200  066e6f6e61746f000e6e6f6e61746f70617373776f7264
-   //                                   000E6E6F6E61746F70617373776F7264
-    return senddata;
-}
-- (IBAction) buttonPressed: (id)sender
-{
-    
-}
 
 -(void)addLogText:(id)log
 {
     self.txt_log.text = [NSString stringWithFormat:@"%@\n%@",log,self.txt_log.text];
     //[self.txt_log.text stringByAppendingFormat:@"\n%@",log];
     //[NSString stringWithFormat:@"%@\n%@",self.txt_log.text.]
+   
 }
 
 -(void)sendDataWithIndex:(long)tag
@@ -228,20 +129,83 @@
     NSMutableData* sliceData  =  [NSMutableData dataWithData:[readHandle readDataOfLength:MAXSLICESSIZE]];
     [sliceData appendData:[AsyncSocket CRLFData]];
     [asyncSocket writeData:sliceData withTimeout:-1 tag:tag];
+    
+}
+
+//TODO:step:2
+//<00000013 00001001 00000000 0004676f 6f640003 6d703400 0016d8>
+-(void)startTrans
+{
+    filepath = [[NSBundle mainBundle] pathForResource:@"testvideo" ofType:@"mp4"];
+    filesize = [self fileSizeAtPath:filepath];
+    self.uploadstate = SOCKET_STARTTRANS;
+    Socket_StartTransReq * req = [[Socket_StartTransReq alloc] init];
+    req.m_meta = 0;
+    req.m_ofrFileName = @"good";
+    req.m_oriFileType = @"mp4";
+    req.m_dataLenInBytes = MAXSLICESSIZE; //(uint32_t)filesize;
+    NSData * reqdata = [req req_socketData:req];
+    [asyncSocket writeData:reqdata withTimeout:-1 tag:messageTag ++];
+    HBLOG2(reqdata);
+}
+//TODO:step:3
+-(void)pureData
+{
+//    [self sendDataWithIndex:messageTag++];
+    int tag = messageTag ++;
+    NSString * msg = [NSString stringWithFormat:@"当前上传%d/%d数据块 当前进度:%.2f%%",(int)tag - DEFAULTSTARTMSGTAG,(int)slicecount,100*(tag - DEFAULTSTARTMSGTAG)/(float)slicecount];
+    HBLOG2(msg)
+    NSFileHandle *readHandle = [NSFileHandle fileHandleForReadingAtPath:filepath];
+    long long offset = (tag -DEFAULTSTARTMSGTAG) * MAXSLICESSIZE;
+    [readHandle seekToFileOffset:offset];
+    NSMutableData* sliceData  =  [NSMutableData dataWithData:[readHandle readDataOfLength:MAXSLICESSIZE]];
+    Socket_PureDataReq * req = [[Socket_PureDataReq alloc] init];
+    req.m_data = sliceData;
+    NSData * reqdata = [req req_socketData:req];
+    [asyncSocket writeData:reqdata withTimeout:-1 tag:messageTag ++];
+    
+//    HBLOG2(reqdata);
 }
 #pragma mark - SOCKET DELEGATE
 
 //接收Socket数据.
 -(void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSString* aStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"===%@",aStr);
-    NSString * log = [NSString stringWithFormat:@"\n%s \n [MESSAGE]%ld: \n === %@",__func__,tag,aStr];
+    
+   int pid = [Socket_PENGBaseResp pid_withsocketData:data];
+    if (pid == PTO_AuthRespId) {
+        PENGAuthResp * resp = [PENGAuthResp getRespFromData:data];
+        if (resp.retCode == 0) {
+            HBLOG2(@"开始传输...");
+            sleep(5);
+            [self startTrans];
+        }
+        else
+        {
+            HBLOG2(resp.errorMsg);
+        }
+    }
+    else if(pid == PTO_StartTransRespId)
+    {
+        Socket_StartTransResp * resp = [Socket_StartTransResp getRespFromData:data];
+        if (resp.m_retCode == 0) {
+            HBLOG2(@"传输校验成功，开始上传视频...");
+            sleep(5);
+            [self pureData];
+        }
+        else
+        {
+            HBLOG2(resp.m_errorMsg);
+        }
+        
+    }
+    
+    NSString * log = [NSString stringWithFormat:@"\n收到: %s \n [MESSAGE]%ld: \n protocal ID= %d",__func__,tag,pid];
+    NSLog(@"%@",log);
     HBLOG2(log)
     if (tag < slicecount) {
 //        [self sendDataWithIndex:(tag + 1)];
     }
-    //[sock writeData:data withTimeout:-1 tag:0];
 }
 
 -(void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
@@ -286,3 +250,69 @@
 
 
 @end
+
+
+
+//length 28 : 0000001C
+//0x1002 : 00001002
+//"nonato" : 00066E6F6E61746F
+//"nonatopassword" : 000E6E6F6E61746F70617373776F7264
+
+//<14000000 10020000 6e6f6e61 746f  6e6f 6e61746f 70617373 776f7264>
+//      1c000000 10020000 06000000 6e6f6e61 746f0e00 000     06e6f6e61746f70617373776f7264
+//<14000000      10020000 6e6f6e61746f                        6e6f6e61746f70617373776f7264>
+
+//<18000000 10020000 06006e6f 6e61746f                    0e006e6f6e61746f70617373776f7264>
+//<  00180000 1002000000066e6f6e61746f000e6e6f6e61746f70617373776f7264>
+//<0018000e10020018     00066e6f6e61746f000e6e6f6e61746f70617373776f7264>
+//<001c000e 0002001c    00066e6f 6e61746f 000e6e6f 6e61746f 70617373 776f7264>
+//<0000001c00001002     00066e6f6e61746f000e6e6f6e61746f70617373776f7264>
+//<0000001c 00001002 00066e6f 6e61746f 000e6e6f 6e61746f 70617373 776f7264>
+// 0000001c00001002     00066e6f6e61746f000e6e6f6e61746f70617373776f7264
+//
+//-(NSMutableData *)DataForAuthreq
+//{
+//    NSMutableData * senddata = [NSMutableData new];
+//    NSMutableData * contentdata = [NSMutableData new];
+//    NSString * uKey = @"nonato";
+//    NSString * uSecret = @"nonatopassword";
+//    uint16_t  uklength = 0xff & uKey.length; //strlen(uKey);
+//    HTONS(uklength);//转换
+//    [contentdata appendBytes:&uklength  length:sizeof(uklength)];
+//    [contentdata appendData:[uKey dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO]];
+//    uint16_t  uSlength = 0xff &  uSecret.length; //strlen(uSecret);
+//    HTONS(uSlength);//转换
+//    [contentdata appendBytes:&uSlength  length:sizeof(uSlength)];
+//    [contentdata appendData:[uSecret dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO]];
+//    
+//    uint32_t contentdatalength = 0xffff & (contentdata.length + 4);
+//    HTONL(contentdatalength);//转换
+//    [senddata appendBytes:&contentdatalength length:sizeof(4)];
+//    uint32_t ProtocolId = 0xffff & 0x1002;
+//    HTONL(ProtocolId);//32字节转换成网络顺序
+//    [senddata appendBytes:&ProtocolId length:sizeof(4)];
+//    [senddata appendData:contentdata];
+//    
+//    return senddata;
+//}
+
+
+//普通字符串转换为十六进制的。
+//
+//- (NSString *)hexStringFromString:(NSString *)string{
+//    NSData *myD = [string dataUsingEncoding:NSUTF8StringEncoding];
+//    Byte *bytes = (Byte *)[myD bytes];
+//    //下面是Byte 转换为16进制。
+//    NSString *hexStr=@"";
+//    for(int i=0;i<[myD length];i++)
+//    {
+//        NSString *newHexStr = [NSString stringWithFormat:@"%x",bytes[i]&0xff];///16进制数
+//        
+//        if([newHexStr length]==1)
+//            hexStr = [NSString stringWithFormat:@"%@0%@",hexStr,newHexStr];
+//        else
+//            hexStr = [NSString stringWithFormat:@"%@%@",hexStr,newHexStr];
+//    }
+//    return hexStr;
+//}
+

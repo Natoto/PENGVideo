@@ -19,16 +19,16 @@ public class StartTransReq implements Req {
 	public static final int ProtocolId = 0x1001;
 
 	// 附加信息，用于扩展
-	private Map<String, String> meta;
+	private Map<String, String> meta;0000 0000
 
 	// 文件原始的名字，不带后缀
-	private String oriFileName;
+	private String oriFileName; len+value
 
 	// 文件原始的名称后缀，不带点号
-	private String oriFileType;
+	private String oriFileType;  len+value
 
 	// 待传输文件的总大小，以字节为单位
-	private int dataLenInBytes;
+	private int dataLenInBytes; 32
 
 	@Override
 	public void fromDis(DataInputStream dis) {

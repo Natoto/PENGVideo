@@ -33,6 +33,10 @@
 		3377CDCF1BD63DAB001DC21D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3377CDCE1BD63DAB001DC21D /* AVFoundation.framework */; };
 		3377CDD21BD63DEF001DC21D /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3377CDD11BD63DEF001DC21D /* PlayViewController.m */; };
 		3377CDD41BD63E3C001DC21D /* PlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3377CDD31BD63E3C001DC21D /* PlayViewController.xib */; };
+		33FC22211BDDBF1300877FDC /* PENGAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC22201BDDBF1300877FDC /* PENGAuth.m */; settings = {ASSET_TAGS = (); }; };
+		33FC22241BDDCCFE00877FDC /* Socket_StartTrans.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC22231BDDCCFE00877FDC /* Socket_StartTrans.m */; settings = {ASSET_TAGS = (); }; };
+		33FC22271BDDD0BC00877FDC /* Socket_PENG.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC22261BDDD0BC00877FDC /* Socket_PENG.m */; settings = {ASSET_TAGS = (); }; };
+		33FC222D1BDE37A800877FDC /* Socket_PureData.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC222C1BDE37A800877FDC /* Socket_PureData.m */; settings = {ASSET_TAGS = (); }; };
 		CFAB6E73D8BE190DD52B1007 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE62ECDA50E2955F6D93C76B /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -94,6 +98,15 @@
 		3377CDD01BD63DEF001DC21D /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
 		3377CDD11BD63DEF001DC21D /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
 		3377CDD31BD63E3C001DC21D /* PlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayViewController.xib; sourceTree = "<group>"; };
+		33FC221F1BDDBF1300877FDC /* PENGAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PENGAuth.h; sourceTree = "<group>"; };
+		33FC22201BDDBF1300877FDC /* PENGAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PENGAuth.m; sourceTree = "<group>"; };
+		33FC22221BDDCCFE00877FDC /* Socket_StartTrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket_StartTrans.h; sourceTree = "<group>"; };
+		33FC22231BDDCCFE00877FDC /* Socket_StartTrans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket_StartTrans.m; sourceTree = "<group>"; };
+		33FC22251BDDD0BC00877FDC /* Socket_PENG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket_PENG.h; sourceTree = "<group>"; };
+		33FC22261BDDD0BC00877FDC /* Socket_PENG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket_PENG.m; sourceTree = "<group>"; };
+		33FC22291BDDE0DE00877FDC /* Socket_PENGFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket_PENGFunc.h; sourceTree = "<group>"; };
+		33FC222B1BDE37A800877FDC /* Socket_PureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket_PureData.h; sourceTree = "<group>"; };
+		33FC222C1BDE37A800877FDC /* Socket_PureData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket_PureData.m; sourceTree = "<group>"; };
 		DBB853A3DFF0FDC189FF452C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FE62ECDA50E2955F6D93C76B /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFFCFDDEECB95B3FD2E460C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -217,6 +230,15 @@
 				3315D0E31BDA1CB600691A55 /* TCPSocketViewController.xib */,
 				3377CDC91BD6275B001DC21D /* UploadViewController.h */,
 				3377CDCA1BD6275B001DC21D /* UploadViewController.m */,
+				33FC222B1BDE37A800877FDC /* Socket_PureData.h */,
+				33FC222C1BDE37A800877FDC /* Socket_PureData.m */,
+				33FC221F1BDDBF1300877FDC /* PENGAuth.h */,
+				33FC22201BDDBF1300877FDC /* PENGAuth.m */,
+				33FC22221BDDCCFE00877FDC /* Socket_StartTrans.h */,
+				33FC22231BDDCCFE00877FDC /* Socket_StartTrans.m */,
+				33FC22251BDDD0BC00877FDC /* Socket_PENG.h */,
+				33FC22261BDDD0BC00877FDC /* Socket_PENG.m */,
+				33FC22291BDDE0DE00877FDC /* Socket_PENGFunc.h */,
 				3315D0DA1BD9CE3200691A55 /* UploadViewController.xib */,
 				3377CD9C1BD61A8E001DC21D /* Main.storyboard */,
 				3301173C1BD781B70025D212 /* PlayerView.h */,
@@ -421,12 +443,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3358DC601BD8B19B007E57FA /* SBVideoRecorder.m in Sources */,
+				33FC22211BDDBF1300877FDC /* PENGAuth.m in Sources */,
+				33FC22271BDDD0BC00877FDC /* Socket_PENG.m in Sources */,
 				3377CDD21BD63DEF001DC21D /* PlayViewController.m in Sources */,
 				3358DC5F1BD8B19B007E57FA /* SBCaptureToolKit.m in Sources */,
 				3358DC4E1BD87DAA007E57FA /* SystemCaptureVideoViewController.m in Sources */,
+				33FC222D1BDE37A800877FDC /* Socket_PureData.m in Sources */,
 				3301173E1BD781B70025D212 /* PlayerView.m in Sources */,
 				3377CD9B1BD61A8E001DC21D /* RootViewController.m in Sources */,
 				3358DC6B1BD8CC36007E57FA /* DeleteButton.m in Sources */,
+				33FC22241BDDCCFE00877FDC /* Socket_StartTrans.m in Sources */,
 				3358DC671BD8C6FC007E57FA /* ProgressBar.m in Sources */,
 				3377CD981BD61A8E001DC21D /* AppDelegate.m in Sources */,
 				3358DC631BD8B2A6007E57FA /* CaptureViewController.m in Sources */,
