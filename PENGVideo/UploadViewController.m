@@ -8,7 +8,8 @@
 
 #import "UploadViewController.h"
 #import "AsyncSocket.h"
-#import "PENGAuth.h"
+
+#import "Socket_PENGAuth.h"
 #import "Socket_PENG.h" 
 #import "Socket_StartTrans.h"
 #import "Socket_PureData.h"
@@ -40,7 +41,7 @@ typedef enum : NSUInteger {
 
 @implementation UploadViewController
 #define HBLOG2(STR) [self addLogText:STR];
-#define MAXSLICESSIZE (1024*20)
+#define MAXSLICESSIZE (1024*10)
 #define DEFAULTSTARTMSGTAG 100
 - (long long) fileSizeAtPath:(NSString*) filePath{
     NSFileManager* manager = [NSFileManager defaultManager];
@@ -102,9 +103,8 @@ typedef enum : NSUInteger {
     
     PENGAuthReq * req = [PENGAuthReq reqWithKey:@"nonato" secret:@"nonatopassword"]; // [self DataForAuthreq];
     NSMutableData * senddata = [req req_socketData:req];
-    [asyncSocket writeData:senddata withTimeout:-1 tag:messageTag ++];
-    HBLOG2(senddata);
-    
+    [asyncSocket writeData:senddata withTimeout:-1 tag:10];
+    HBLOG2(senddata); 
 //    NSString * msg = [NSString stringWithFormat:@"%@\r\n",self.txt_message.text];
 //    NSData* xmlData = [msg dataUsingEncoding:NSUTF8StringEncoding];
 //    [asyncSocket writeData:xmlData withTimeout:-1 tag:messageTag ++];
@@ -127,9 +127,13 @@ typedef enum : NSUInteger {
     long long offset = (tag -DEFAULTSTARTMSGTAG) * MAXSLICESSIZE;
     [readHandle seekToFileOffset:offset];
     NSMutableData* sliceData  =  [NSMutableData dataWithData:[readHandle readDataOfLength:MAXSLICESSIZE]];
-    [sliceData appendData:[AsyncSocket CRLFData]];
-    [asyncSocket writeData:sliceData withTimeout:-1 tag:tag];
-    
+//    [sliceData appendData:[AsyncSocket CRLFData]];
+//    [asyncSocket writeData:sliceData withTimeout:-1 tag:tag];
+    Socket_PureDataReq * req = [[Socket_PureDataReq alloc] init];
+    req.m_data = sliceData;
+    NSData * reqdata = [req req_socketData:req];
+    [asyncSocket writeData:reqdata withTimeout:-1 tag:tag];
+ 
 }
 
 //TODO:step:2
@@ -143,26 +147,26 @@ typedef enum : NSUInteger {
     req.m_meta = 0;
     req.m_ofrFileName = @"good";
     req.m_oriFileType = @"mp4";
-    req.m_dataLenInBytes = MAXSLICESSIZE; //(uint32_t)filesize;
+    req.m_dataLenInBytes = (uint32_t)filesize;
     NSData * reqdata = [req req_socketData:req];
-    [asyncSocket writeData:reqdata withTimeout:-1 tag:messageTag ++];
+    [asyncSocket writeData:reqdata withTimeout:-1 tag:20];
     HBLOG2(reqdata);
 }
 //TODO:step:3
 -(void)pureData
 {
-//    [self sendDataWithIndex:messageTag++];
-    int tag = messageTag ++;
-    NSString * msg = [NSString stringWithFormat:@"当前上传%d/%d数据块 当前进度:%.2f%%",(int)tag - DEFAULTSTARTMSGTAG,(int)slicecount,100*(tag - DEFAULTSTARTMSGTAG)/(float)slicecount];
-    HBLOG2(msg)
-    NSFileHandle *readHandle = [NSFileHandle fileHandleForReadingAtPath:filepath];
-    long long offset = (tag -DEFAULTSTARTMSGTAG) * MAXSLICESSIZE;
-    [readHandle seekToFileOffset:offset];
-    NSMutableData* sliceData  =  [NSMutableData dataWithData:[readHandle readDataOfLength:MAXSLICESSIZE]];
-    Socket_PureDataReq * req = [[Socket_PureDataReq alloc] init];
-    req.m_data = sliceData;
-    NSData * reqdata = [req req_socketData:req];
-    [asyncSocket writeData:reqdata withTimeout:-1 tag:messageTag ++];
+    [self sendDataWithIndex:messageTag++];
+//    int tag = messageTag ++;
+//    NSString * msg = [NSString stringWithFormat:@"当前上传%d/%d数据块 当前进度:%.2f%%",(int)tag - DEFAULTSTARTMSGTAG,(int)slicecount,100*(tag - DEFAULTSTARTMSGTAG)/(float)slicecount];
+//    HBLOG2(msg)
+//    NSFileHandle *readHandle = [NSFileHandle fileHandleForReadingAtPath:filepath];
+//    long long offset = (tag -DEFAULTSTARTMSGTAG) * MAXSLICESSIZE;
+//    [readHandle seekToFileOffset:offset];
+//    NSMutableData* sliceData  =  [NSMutableData dataWithData:[readHandle readDataOfLength:MAXSLICESSIZE]];
+//    Socket_PureDataReq * req = [[Socket_PureDataReq alloc] init];
+//    req.m_data = sliceData;
+//    NSData * reqdata = [req req_socketData:req];
+//    [asyncSocket writeData:reqdata withTimeout:-1 tag:messageTag ++];
     
 //    HBLOG2(reqdata);
 }
@@ -175,14 +179,14 @@ typedef enum : NSUInteger {
    int pid = [Socket_PENGBaseResp pid_withsocketData:data];
     if (pid == PTO_AuthRespId) {
         PENGAuthResp * resp = [PENGAuthResp getRespFromData:data];
-        if (resp.retCode == 0) {
+        if (resp.m_retCode == 0) {
             HBLOG2(@"开始传输...");
             sleep(5);
             [self startTrans];
         }
         else
         {
-            HBLOG2(resp.errorMsg);
+            HBLOG2(resp.m_errorMsg);
         }
     }
     else if(pid == PTO_StartTransRespId)
@@ -197,9 +201,26 @@ typedef enum : NSUInteger {
         {
             HBLOG2(resp.m_errorMsg);
         }
-        
     }
-    
+    else if(pid == PTO_ProgressNoticeId)
+    {
+        Socket_ProgressNotice * resp = [Socket_ProgressNotice getRespFromData:data];
+        if (resp.m_transLenInBytes) {
+            NSString * msg = [NSString stringWithFormat:@"\n 当前上传完成 %d/%d",resp.m_transLenInBytes,resp.m_totalLenInBytes];
+            NSLog(@"%@",msg);
+            HBLOG2(msg);
+            [self sendDataWithIndex:messageTag++];
+        }
+    }
+    else if(pid == PTO_TransferResultId)
+    {
+        Socket_TransferResult * resp = [Socket_TransferResult getRespFromData:data];
+        if (resp.m_retCode == 0) {
+            NSString * msg = [NSString stringWithFormat:@"\n 上传完成! URL = %@ ",resp.m_accessUrl];
+            NSLog(@"%@",msg);
+            HBLOG2(msg);
+        }
+    }
     NSString * log = [NSString stringWithFormat:@"\n收到: %s \n [MESSAGE]%ld: \n protocal ID= %d",__func__,tag,pid];
     NSLog(@"%@",log);
     HBLOG2(log)

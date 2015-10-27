@@ -7,7 +7,7 @@
 //
 
 #import "Socket_PENG.h" 
-#import "PENGAuth.h"
+#import "Socket_PENGAuth.h"
 #import "Socket_StartTrans.h"
 
 @implementation Socket_PENGBaseReq
@@ -18,7 +18,7 @@
     return nil;
 }
 
--(int32_t)contentdatalength
+-(uint32_t)contentdatalength
 {
     return 0;
 }
@@ -29,10 +29,11 @@
     NSData * contentdata = [basesocket contentData];
     uint32_t contentdatalength = [basesocket contentdatalength] + sizeof(uint32_t) * 2;
     //0xffff & (contentdata.length) + 8;
+    NSLog(@"包的总长度 contentdatalength = %d",contentdatalength);
     HTONL(contentdatalength);//转换
     [senddata appendBytes:&contentdatalength length:sizeof(uint32_t)];
     uint32_t ProtocolId = 0xffff & basesocket.ProtocolId;// 0x1002;
-    HTONL(ProtocolId);//32字节转换成网络顺序
+    HTONL(ProtocolId);//32字节转换成网络顺序    
     [senddata appendBytes:&ProtocolId length:sizeof(uint32_t)];
     [senddata appendData:contentdata];
     return senddata;

@@ -102,6 +102,7 @@ static NSString * readNextString(NSData * data,int *readpointIndex,int stringlen
         [data getBytes:&stringbytes range:NSMakeRange(*readpointIndex, stringlength)];
         NSData *stringdata = [[NSData alloc] initWithBytes:stringbytes length:stringlength];
         retmsgstring = [[NSString alloc] initWithData:stringdata encoding:NSUTF8StringEncoding];
+         *readpointIndex += stringlength;
     }
     return retmsgstring;
 }

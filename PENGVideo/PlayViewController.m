@@ -153,10 +153,11 @@
 - (void)monitoringPlayback:(AVPlayerItem *)playerItem {
     
     __weak typeof(self) weakSelf = self;
+    
     self.playbackTimeObserver = [self.playerView.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:NULL usingBlock:^(CMTime time) {
         CGFloat currentSecond = playerItem.currentTime.value/playerItem.currentTime.timescale;// 计算当前在第几秒
         [weakSelf.videoSlider setValue:currentSecond animated:YES];
-        NSString *timeString = [self convertTime:currentSecond];
+        NSString *timeString = [weakSelf convertTime:currentSecond];
 //        weakSelf.timeLabel.text = [NSString stringWithFormat:@"%@/%@",timeString,_totalTime];
         NSLog(@"当前播放时间:%@",timeString);
     }];
@@ -186,6 +187,7 @@
     [self.playerItem removeObserver:self forKeyPath:@"loadedTimeRanges" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
     [self.playerView.player removeTimeObserver:self.playbackTimeObserver];
+    self.playerView.player = nil;
 }
 
 

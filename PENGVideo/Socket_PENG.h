@@ -9,14 +9,34 @@
 #import "Socket_PENGFunc.h"
 #import <Foundation/Foundation.h>
 #import <stdio.h>
-
-static int PTO_StartTransRespId = 0x2001;
-static int PTO_StartTransReqId  = 0x1001;
-
-static int PTO_AuthReqId        = 0x1002;
-static int PTO_AuthRespId       = 0x2002;
-
-static int PTO_PureDataReqId    = 0x1008;
+/**
+ *  开始传输回复ID
+ */
+static int PTO_StartTransRespId     = 0x2001;
+/**
+ *  开始传输请求ID
+ */
+static int PTO_StartTransReqId      = 0x1001;
+/**
+ *  验证请求ID
+ */
+static int PTO_AuthReqId            = 0x1002;
+/**
+ *  验证返回ID
+ */
+static int PTO_AuthRespId           = 0x2002;
+/**
+ *  上传数据ID
+ */
+static int PTO_PureDataReqId        = 0x1008;
+/**
+ *  进度ID
+ */
+static int PTO_ProgressNoticeId     = 0x2005;
+/**
+ *  上传完成ID
+ */
+static int PTO_TransferResultId     = 0x2003;
 
 @protocol SocketReqProtocol <NSObject>
 @required
@@ -39,7 +59,10 @@ static int PTO_PureDataReqId    = 0x1008;
 @end
 
 @interface Socket_PENGBaseResp : NSObject<SocketRespProtocol>
-@property(nonatomic,assign) id<SocketRespProtocol> respprotocol;
+@property(nonatomic,assign) int16_t m_retCode;
+@property(nonatomic,assign) int16_t m_ProtocolId;
+@property(nonatomic,strong) NSString *m_errorMsg;
+
 +(uint32_t)pid_withsocketData:(NSData *)socketdata;
 //+(Socket_PENGBaseResp *)resp_withSocketData:(NSData *)socketdata;
 @end

@@ -13,6 +13,7 @@
 		3315D0E01BD9DD8D00691A55 /* UDPSocketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3315D0DE1BD9DD8D00691A55 /* UDPSocketViewController.xib */; };
 		3315D0E41BDA1CB600691A55 /* TCPSocketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3315D0E21BDA1CB600691A55 /* TCPSocketViewController.m */; };
 		3315D0E51BDA1CB600691A55 /* TCPSocketViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3315D0E31BDA1CB600691A55 /* TCPSocketViewController.xib */; };
+		331A34881BDF2352002CAA6C /* testvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 331A34871BDF2352002CAA6C /* testvideo.mp4 */; settings = {ASSET_TAGS = (); }; };
 		3358DC4E1BD87DAA007E57FA /* SystemCaptureVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3358DC4D1BD87DAA007E57FA /* SystemCaptureVideoViewController.m */; };
 		3358DC501BD882D5007E57FA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3358DC4F1BD882D5007E57FA /* MobileCoreServices.framework */; };
 		3358DC541BD88CA2007E57FA /* OverlayViewConroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3358DC521BD88CA2007E57FA /* OverlayViewConroller.m */; };
@@ -29,11 +30,11 @@
 		3377CDA01BD61A8E001DC21D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3377CD9F1BD61A8E001DC21D /* Assets.xcassets */; };
 		3377CDAE1BD61A8F001DC21D /* PENGVideoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3377CDAD1BD61A8F001DC21D /* PENGVideoTests.m */; };
 		3377CDCB1BD6275B001DC21D /* UploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3377CDCA1BD6275B001DC21D /* UploadViewController.m */; };
-		3377CDCD1BD637AF001DC21D /* testvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3377CDCC1BD637AF001DC21D /* testvideo.mp4 */; };
+		3377CDCD1BD637AF001DC21D /* testvideo2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3377CDCC1BD637AF001DC21D /* testvideo2.mp4 */; };
 		3377CDCF1BD63DAB001DC21D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3377CDCE1BD63DAB001DC21D /* AVFoundation.framework */; };
 		3377CDD21BD63DEF001DC21D /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3377CDD11BD63DEF001DC21D /* PlayViewController.m */; };
 		3377CDD41BD63E3C001DC21D /* PlayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3377CDD31BD63E3C001DC21D /* PlayViewController.xib */; };
-		33FC22211BDDBF1300877FDC /* PENGAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC22201BDDBF1300877FDC /* PENGAuth.m */; settings = {ASSET_TAGS = (); }; };
+		33FC22211BDDBF1300877FDC /* Socket_PENGAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC22201BDDBF1300877FDC /* Socket_PENGAuth.m */; settings = {ASSET_TAGS = (); }; };
 		33FC22241BDDCCFE00877FDC /* Socket_StartTrans.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC22231BDDCCFE00877FDC /* Socket_StartTrans.m */; settings = {ASSET_TAGS = (); }; };
 		33FC22271BDDD0BC00877FDC /* Socket_PENG.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC22261BDDD0BC00877FDC /* Socket_PENG.m */; settings = {ASSET_TAGS = (); }; };
 		33FC222D1BDE37A800877FDC /* Socket_PureData.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FC222C1BDE37A800877FDC /* Socket_PureData.m */; settings = {ASSET_TAGS = (); }; };
@@ -60,6 +61,7 @@
 		3315D0E11BDA1CB600691A55 /* TCPSocketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPSocketViewController.h; sourceTree = "<group>"; };
 		3315D0E21BDA1CB600691A55 /* TCPSocketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPSocketViewController.m; sourceTree = "<group>"; };
 		3315D0E31BDA1CB600691A55 /* TCPSocketViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCPSocketViewController.xib; sourceTree = "<group>"; };
+		331A34871BDF2352002CAA6C /* testvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = testvideo.mp4; sourceTree = "<group>"; };
 		3358DC4C1BD87DAA007E57FA /* SystemCaptureVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemCaptureVideoViewController.h; sourceTree = "<group>"; };
 		3358DC4D1BD87DAA007E57FA /* SystemCaptureVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemCaptureVideoViewController.m; sourceTree = "<group>"; };
 		3358DC4F1BD882D5007E57FA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -93,13 +95,13 @@
 		3377CDBA1BD61A8F001DC21D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3377CDC91BD6275B001DC21D /* UploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadViewController.h; sourceTree = "<group>"; };
 		3377CDCA1BD6275B001DC21D /* UploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadViewController.m; sourceTree = "<group>"; };
-		3377CDCC1BD637AF001DC21D /* testvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = testvideo.mp4; sourceTree = "<group>"; };
+		3377CDCC1BD637AF001DC21D /* testvideo2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = testvideo2.mp4; sourceTree = "<group>"; };
 		3377CDCE1BD63DAB001DC21D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3377CDD01BD63DEF001DC21D /* PlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
 		3377CDD11BD63DEF001DC21D /* PlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
 		3377CDD31BD63E3C001DC21D /* PlayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayViewController.xib; sourceTree = "<group>"; };
-		33FC221F1BDDBF1300877FDC /* PENGAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PENGAuth.h; sourceTree = "<group>"; };
-		33FC22201BDDBF1300877FDC /* PENGAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PENGAuth.m; sourceTree = "<group>"; };
+		33FC221F1BDDBF1300877FDC /* Socket_PENGAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket_PENGAuth.h; sourceTree = "<group>"; };
+		33FC22201BDDBF1300877FDC /* Socket_PENGAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket_PENGAuth.m; sourceTree = "<group>"; };
 		33FC22221BDDCCFE00877FDC /* Socket_StartTrans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket_StartTrans.h; sourceTree = "<group>"; };
 		33FC22231BDDCCFE00877FDC /* Socket_StartTrans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Socket_StartTrans.m; sourceTree = "<group>"; };
 		33FC22251BDDD0BC00877FDC /* Socket_PENG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Socket_PENG.h; sourceTree = "<group>"; };
@@ -232,8 +234,8 @@
 				3377CDCA1BD6275B001DC21D /* UploadViewController.m */,
 				33FC222B1BDE37A800877FDC /* Socket_PureData.h */,
 				33FC222C1BDE37A800877FDC /* Socket_PureData.m */,
-				33FC221F1BDDBF1300877FDC /* PENGAuth.h */,
-				33FC22201BDDBF1300877FDC /* PENGAuth.m */,
+				33FC221F1BDDBF1300877FDC /* Socket_PENGAuth.h */,
+				33FC22201BDDBF1300877FDC /* Socket_PENGAuth.m */,
 				33FC22221BDDCCFE00877FDC /* Socket_StartTrans.h */,
 				33FC22231BDDCCFE00877FDC /* Socket_StartTrans.m */,
 				33FC22251BDDD0BC00877FDC /* Socket_PENG.h */,
@@ -253,7 +255,8 @@
 		3377CD931BD61A8E001DC21D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3377CDCC1BD637AF001DC21D /* testvideo.mp4 */,
+				331A34871BDF2352002CAA6C /* testvideo.mp4 */,
+				3377CDCC1BD637AF001DC21D /* testvideo2.mp4 */,
 				3377CD941BD61A8E001DC21D /* main.m */,
 			);
 			name = "Supporting Files";
@@ -370,12 +373,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3315D0DB1BD9CE3200691A55 /* UploadViewController.xib in Resources */,
+				331A34881BDF2352002CAA6C /* testvideo.mp4 in Resources */,
 				3358DC551BD88CA2007E57FA /* OverlayViewConroller.xib in Resources */,
 				3315D0E51BDA1CB600691A55 /* TCPSocketViewController.xib in Resources */,
 				3377CDA01BD61A8E001DC21D /* Assets.xcassets in Resources */,
 				3377CD9E1BD61A8E001DC21D /* Main.storyboard in Resources */,
 				3315D0E01BD9DD8D00691A55 /* UDPSocketViewController.xib in Resources */,
-				3377CDCD1BD637AF001DC21D /* testvideo.mp4 in Resources */,
+				3377CDCD1BD637AF001DC21D /* testvideo2.mp4 in Resources */,
 				3377CDD41BD63E3C001DC21D /* PlayViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,7 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3358DC601BD8B19B007E57FA /* SBVideoRecorder.m in Sources */,
-				33FC22211BDDBF1300877FDC /* PENGAuth.m in Sources */,
+				33FC22211BDDBF1300877FDC /* Socket_PENGAuth.m in Sources */,
 				33FC22271BDDD0BC00877FDC /* Socket_PENG.m in Sources */,
 				3377CDD21BD63DEF001DC21D /* PlayViewController.m in Sources */,
 				3358DC5F1BD8B19B007E57FA /* SBCaptureToolKit.m in Sources */,
